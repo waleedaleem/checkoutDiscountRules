@@ -13,9 +13,15 @@ public class Checkout {
 
     private final List<CheckoutItem> checkoutItems = new ArrayList<>();
 
-    public void scan(String sku) {
+    public Checkout() {
+        System.out.println("Started a new checkout");
+    }
+
+    public Checkout scan(String sku) {
+        System.out.printf("\tScanned item: %s%n", sku);
         // add scanned item to list
         checkoutItems.add(new CheckoutItem(InventoryItem.getItem(sku)));
+        return this;
     }
 
     public boolean includesOrMore(int count, String sku) {
