@@ -19,4 +19,12 @@ public class CheckoutItem {
     public void adjustSalePrice(double salePrice) {
         this.salePrice = salePrice;
     }
+
+    public String getSku() {
+        return inventoryItem.getSku();
+    }
+
+    public String getName() {
+        return inventoryItem.getName();
+    }
 }
