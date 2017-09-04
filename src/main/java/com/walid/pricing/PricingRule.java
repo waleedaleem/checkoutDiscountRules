@@ -21,8 +21,8 @@ public class PricingRule {
     }
 
     public Checkout then(UnaryOperator<Checkout> adjustment) {
-        // apply no change if either condition or adjustment are missing or condition is not satisfied
-        if (condition == null || adjustment == null || condition.negate().test(checkout)) {
+        // apply no change if adjustment is missing or condition is provided and not satisfied
+        if (adjustment == null || (condition != null && condition.negate().test(checkout))) {
             return checkout;
         } else {
             return adjustment.apply(checkout);

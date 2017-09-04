@@ -91,4 +91,17 @@ public class PricingRuleTest {
                 .then(co -> co.buyNgetOnefor$(3, "atv", 0.0));
         assertThat(checkout.total(), equalTo(4 * InventoryItem.getItem("atv").getPrice()));
     }
+
+    // we will bundle in a free VGA adapter free of charge with every MacBook Pro sold
+    @Test
+    public void buy2MBPget2VGAfor0$() throws Exception {
+        Checkout checkout = new Checkout();
+        checkout.scan("mbp");
+        checkout.scan("mbp");
+        checkout.scan("vga");
+        checkout.scan("vga");
+        checkout = new PricingRule().given(checkout)
+                .then(co -> co.buyXgetYfor$("mbp", "vga", 0.0));
+        assertThat(checkout.total(), equalTo(2 * InventoryItem.getItem("mbp").getPrice()));
+    }
 }

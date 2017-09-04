@@ -20,6 +20,10 @@ public class CheckoutItem {
         this.salePrice = salePrice;
     }
 
+    public void adjustSalePriceByPercentage(double percentage) {
+        this.salePrice *= percentage;
+    }
+
     public String getSku() {
         return inventoryItem.getSku();
     }

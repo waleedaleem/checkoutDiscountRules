@@ -68,6 +68,31 @@ public class Checkout {
         return this;
     }
 
+    /**
+     * Buy a specific item, get another item bundeled at a reduced price (discountedPrice)
+     * Note that discountedPrice can perfectly be zero as well a.k.a buy n get one bundeled for free
+     *
+     * @param buySku
+     * @param bundeledSku
+     * @param discountedPrice
+     * @return
+     */
+    public Checkout buyXgetYfor$(String buySku, String bundeledSku, double discountedPrice) {
+
+        // number of bundledSku to sell for discountedPrice
+        long count = checkoutItems.parallelStream()
+                .filter(item -> item.getSku().equals(buySku))
+                .count();
+
+        // adjust the price of bundled items
+        checkoutItems.parallelStream()
+                .filter(item -> item.getSku().equals(bundeledSku))
+                .limit(count)
+                .forEach(bundledItem -> bundledItem.adjustSalePrice(discountedPrice));
+
+        return this;
+    }
+
     public double total() {
         return checkoutItems.parallelStream()
                 .mapToDouble(CheckoutItem::getSalePrice)
