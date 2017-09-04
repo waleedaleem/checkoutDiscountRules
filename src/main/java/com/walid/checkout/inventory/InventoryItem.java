@@ -1,12 +1,13 @@
 package com.walid.checkout.inventory;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class InventoryItem {
 
-    public static final List<InventoryItem> INVENTORY_ITEM_LIST = new ArrayList<>();
+    public static final Set<InventoryItem> INVENTORY_ITEM_LIST = new HashSet<>();
     private final String sku;
     private final String name;
     private final double price;
@@ -27,6 +28,39 @@ public class InventoryItem {
 
     public static void initInventroyItemList(List<InventoryItem> itemList) {
         INVENTORY_ITEM_LIST.addAll(itemList);
+    }
+
+    /**
+     * given an sku, returns the corresponding inventory item or throws an exception
+     */
+    public static InventoryItem getItem(String sku) {
+        return INVENTORY_ITEM_LIST.stream()
+                .filter(item -> item.getSku().equals(sku))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Undefined sku scanned. Please update inventory first."));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof InventoryItem)) return false;
+
+        InventoryItem that = (InventoryItem) o;
+
+        if (Double.compare(that.getPrice(), getPrice()) != 0) return false;
+        if (!getSku().equals(that.getSku())) return false;
+        return getName().equals(that.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = getSku().hashCode();
+        result = 31 * result + getName().hashCode();
+        temp = Double.doubleToLongBits(getPrice());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
     }
 
     public String getSku() {
