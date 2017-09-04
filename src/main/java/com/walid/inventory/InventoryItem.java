@@ -18,8 +18,16 @@ public class InventoryItem {
         this.price = price;
     }
 
-    public static void initInventroyItemList() {
-        List<String> itemLines = Arrays.asList("ipd,Super iPad,549.99", "mbp,MacBook Pro,1399.9", "atv,Apple TV,109.50", "vga,VGA adapter,30.00");
+    /**
+     * static initialisation with default item list (should be loaded from persistent storage instead)
+     */
+    static {
+        List<String> itemLines = Arrays.asList("ipd,Super iPad,549.99"
+                , "mbp,MacBook Pro,1399.9"
+                , "atv,Apple TV,109.50"
+                , "vga,VGA adapter,30.00"
+        );
+
         itemLines.forEach(l -> {
             String[] fields = l.split(",");
             INVENTORY_ITEM_LIST.add(new InventoryItem(fields[0], fields[1], Double.parseDouble(fields[2])));
@@ -27,6 +35,7 @@ public class InventoryItem {
     }
 
     public static void initInventroyItemList(List<InventoryItem> itemList) {
+        INVENTORY_ITEM_LIST.clear();
         INVENTORY_ITEM_LIST.addAll(itemList);
     }
 
