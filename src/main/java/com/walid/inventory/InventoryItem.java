@@ -1,4 +1,4 @@
-package com.walid.checkout.inventory;
+package com.walid.inventory;
 
 import java.util.Arrays;
 import java.util.HashSet;

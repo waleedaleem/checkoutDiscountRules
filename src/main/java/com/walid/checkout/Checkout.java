@@ -1,6 +1,6 @@
 package com.walid.checkout;
 
-import com.walid.checkout.inventory.InventoryItem;
+import com.walid.inventory.InventoryItem;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.walid.checkout;
 
-import com.walid.checkout.inventory.InventoryItem;
+import com.walid.inventory.InventoryItem;
 
 public class CheckoutItem {
 
